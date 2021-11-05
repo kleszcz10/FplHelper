@@ -1,0 +1,72 @@
+###Parameters
+GET http://localhost:5000/api/home/GetParameters HTTP/1.1
+
+### Optimalisation
+POST http://localhost:5000/api/Home/Optimalisation HTTP/1.1
+Content-Type: application/json
+
+[
+  {
+      "propertyName": "WebName",
+      "displayOnly": true
+  },
+  {
+    "propertyName": "Form",
+    "weight": 8,
+    "ascending": true,
+    "displayOnly": false
+  },
+  {
+    "propertyName": "TotalPoints",
+    "weight": 10,
+    "ascending": true,
+    "displayOnly": false
+  },
+  {
+    "propertyName": "AvgOfNext3GwFixture",
+    "weight": 6,
+    "ascending": false,
+    "displayOnly": false
+  },
+  {
+    "propertyName": "Threat",
+    "weight": 15,
+    "ascending": true,
+    "displayOnly": false
+  }
+]
+
+### Best team based on optimalisation
+POST http://localhost:5000/api/Home/BestTeamBasedOnOptimalisation/10 HTTP/1.1
+Content-Type: application/json
+
+[
+  {
+      "propertyName": "WebName",
+      "displayOnly": true
+  },
+  {
+    "propertyName": "Form",
+    "weight": 8,
+    "ascending": true,
+    "displayOnly": false
+  },
+  {
+    "propertyName": "TotalPoints",
+    "weight": 10,
+    "ascending": true,
+    "displayOnly": false
+  },
+  {
+    "propertyName": "AvgOfNext3GwFixture",
+    "weight": 6,
+    "ascending": false,
+    "displayOnly": false
+  },
+  {
+    "propertyName": "Threat",
+    "weight": 15,
+    "ascending": true,
+    "displayOnly": false
+  }
+]
