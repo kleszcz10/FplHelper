@@ -377,13 +377,14 @@ namespace Fpl.Api.Services
 
             result.AddRange(combinations);
 
-            Func<IEnumerable<FplPlayerExtension>, int, bool> condition = (team, moneyToAvailable) => team.Sum(p => p.NowCost) <= moneyToAvailable;
+            Func<double, IEnumerable<FplPlayerExtension>, int, bool> condition = (currentPlayersSumOfTotal, alternative, moneyToAvailable) => alternative.Sum(p => p.NowCost) <= moneyToAvailable && alternative.Sum(x => x.Total) > currentPlayersSumOfTotal;
 
             var playersNotInCurrentTeam = players.Where(x => playersInTeam.All(p => p.Id != x.Id));
 
             foreach (var playersCombination in result)
             {
                 var availableMoney = currnetPick.EventEntryHistory.Bank + playersCombination.Current.Sum(x => x.SellingCost);
+                var currentPlayersSumOfTotal = playersCombination.Current.Sum(x => x.Total);
 
                 Dictionary<FplPlayerPosition, int> playersOnPositions = new Dictionary<FplPlayerPosition, int>();
 
@@ -417,7 +418,7 @@ namespace Fpl.Api.Services
                                         foreach (var fourthPositionPlayers in Backpack.GetPermutations(playersNotInCurrentTeam.Where(x => x.Position == fourthPosition.Key), fourthPosition.Value))
                                         {
                                             var alternative = firstPositionPlayers.Concat(secoundPositionPlayers).Concat(thirdPositionPlayers).Concat(fourthPositionPlayers);
-                                            if (condition.Invoke(alternative, availableMoney))
+                                            if (condition.Invoke(currentPlayersSumOfTotal, alternative, availableMoney))
                                             {
                                                 alternatives.Add(alternative);
                                             }
@@ -426,7 +427,7 @@ namespace Fpl.Api.Services
                                     else
                                     {
                                         var alternative = firstPositionPlayers.Concat(secoundPositionPlayers).Concat(thirdPositionPlayers);
-                                        if (condition.Invoke(alternative, availableMoney))
+                                        if (condition.Invoke(currentPlayersSumOfTotal, alternative, availableMoney))
                                         {
                                             alternatives.Add(alternative);
                                         }
@@ -436,7 +437,7 @@ namespace Fpl.Api.Services
                             else
                             {
                                 var alternative = firstPositionPlayers.Concat(secoundPositionPlayers);
-                                if (condition.Invoke(alternative, availableMoney))
+                                if (condition.Invoke(currentPlayersSumOfTotal, alternative, availableMoney))
                                 {
                                     alternatives.Add(alternative);
                                 }
@@ -447,7 +448,7 @@ namespace Fpl.Api.Services
                     else
                     {
                         var alternative = firstPositionPlayers;
-                        if (condition.Invoke(alternative, availableMoney))
+                        if (condition.Invoke(currentPlayersSumOfTotal, alternative, availableMoney))
                         {
                             alternatives.Add(alternative);
                         }
