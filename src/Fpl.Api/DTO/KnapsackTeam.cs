@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Fpl.Api.Controllers;
+using Fpl.Api.DTO;
 
-namespace Fpl.Api.Controllers
+namespace Fpl.Api.DTO
 {
-    public class BestTeam
+    public class KnapsackTeam
     {
         public IEnumerable<FplPlayerExtension> Team { get; set; }
         public double? SumIndex => Team?.Sum(x => x.BackpackIndex);

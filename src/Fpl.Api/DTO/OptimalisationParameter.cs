@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Fpl.Api.DTO
 {
-    public class Parameter
+    public class OptimalisationParameter
     {
         public string PropertyName { get; set; }
         public int Weight { get; set; }
