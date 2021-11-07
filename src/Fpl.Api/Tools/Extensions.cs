@@ -1,5 +1,8 @@
 ﻿using Fpl.Api.Controllers;
 using Fpl.Api.DTO;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.DependencyInjection;
+
 namespace Fpl.Api.Tools
 {
     public static class Extensions
@@ -26,6 +29,17 @@ namespace Fpl.Api.Tools
                 NowCost = player.NowCost,
                 Total = player.Total
             };
+        }
+
+        public static IServiceCollection AddResultsCaching<T>(this IServiceCollection services)
+        {
+            services.Decorate<T>((instance, serviceProvider) =>
+            {
+                var cache = serviceProvider.GetService<IMemoryCache>();
+                return CacheProxy<T>.Create(instance, cache);
+            });
+
+            return services;
         }
     }
 }

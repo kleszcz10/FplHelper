@@ -1,5 +1,6 @@
 ﻿using Fpl.Api.DTO;
 using Fpl.Api.Services;
+using Fpl.Api.Tools;
 using FplClient.Clients;
 using FplClient.Data;
 using Microsoft.AspNetCore.Http;
@@ -25,7 +26,6 @@ namespace Fpl.Api.Controllers
     public class FplController : ControllerBase
     {
         private readonly IFplService _fplService;
-
         public FplController(IFplService fplService)
         {
             _fplService = fplService ?? throw new ArgumentNullException(nameof(fplService));

@@ -12,32 +12,33 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Fpl.Api.Tools;
+using FplClient;
 
 namespace Fpl.Api.Services
 {
     public class FplService : IFplService
     {
-        private readonly FplEntryClient _fplEntryClient;
-        private readonly FplEntryHistoryClient _fplEntryHistoryClient;
-        private readonly FplLeagueClient _fplLeagueClient;
-        private readonly FplPlayerClient _fplPlayerClient;
-        private readonly FplFixtureClient _fplFixtureClient;
-        private readonly FplGameweekClient _fplGameweekClient;
-        private readonly FplGlobalSettingsClient _fplGlobalSettingsClient;
-        private readonly FplLiveGameweekStatsClient _fplLiveGameweekStatsClient;
+        private readonly IFplEntryClient _fplEntryClient;
+        private readonly IFplEntryHistoryClient _fplEntryHistoryClient;
+        private readonly IFplLeagueClient _fplLeagueClient;
+        private readonly IFplPlayerClient _fplPlayerClient;
+        private readonly IFplFixtureClient _fplFixtureClient;
+        private readonly IFplGameweekClient _fplGameweekClient;
+        private readonly IFplGlobalSettingsClient _fplGlobalSettingsClient;
+        private readonly IFplLiveGameweekStatsClient _fplLiveGameweekStatsClient;
         private readonly ILogger<FplService> _logger;
         private readonly IMemoryCache _cache;
 
-        public FplService(FplEntryClient fplEntryClient,
-                              FplEntryHistoryClient fplEntryHistoryClient,
-                              FplLeagueClient fplLeagueClient,
-                              FplPlayerClient fplPlayerClient,
-                              FplFixtureClient fplFixtureClient,
-                              FplGameweekClient fplGameweekClient,
-                              FplGlobalSettingsClient fplGlobalSettingsClient,
-                              FplLiveGameweekStatsClient fplLiveGameweekStatsClient,
-                              ILogger<FplService> logger,
-                              IMemoryCache cache)
+        public FplService(IFplEntryClient fplEntryClient,
+                          IFplEntryHistoryClient fplEntryHistoryClient,
+                          IFplLeagueClient fplLeagueClient,
+                          IFplPlayerClient fplPlayerClient,
+                          IFplFixtureClient fplFixtureClient,
+                          IFplGameweekClient fplGameweekClient,
+                          IFplGlobalSettingsClient fplGlobalSettingsClient,
+                          IFplLiveGameweekStatsClient fplLiveGameweekStatsClient,
+                          ILogger<FplService> logger,
+                          IMemoryCache cache)
         {
             _fplEntryClient = fplEntryClient ?? throw new ArgumentNullException(nameof(fplEntryClient));
             _fplEntryHistoryClient = fplEntryHistoryClient ?? throw new ArgumentNullException(nameof(fplEntryHistoryClient));
