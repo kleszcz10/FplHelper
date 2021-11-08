@@ -359,7 +359,7 @@ namespace Fpl.Api.Services
 
             foreach (var playerInTeam in playersInTeam)
             {
-                var gameweekWitchPlayerWasBought = teamHistory.OrderByDescending(x => x.EventEntryHistory.Event).FirstOrDefault(x => x.Picks.All(p => p.PlayerId != playerInTeam.Id))?.EventEntryHistory?.Event ?? 1;
+                var gameweekWitchPlayerWasBought = teamHistory.OrderByDescending(x => x.EventEntryHistory.Event).FirstOrDefault(x => x.Picks.All(p => p.PlayerId != playerInTeam.Id))?.EventEntryHistory?.Event + 1 ?? 1;
                 var summary = await _fplPlayerClient.GetPlayer(playerInTeam.Id);
 
                 playerInTeam.PurchaseCost = summary.MatchStats.FirstOrDefault(x => x.Round == gameweekWitchPlayerWasBought).Value;
