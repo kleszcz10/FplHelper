@@ -458,8 +458,8 @@ namespace Fpl.Api.Services
 
                 playersCombination.Alternative = alternatives.OrderByDescending(x => x.Sum(p => p.Total)).FirstOrDefault()?.Select(x => x.MapToBasic())?.ToList();
             }
-
-            return result;
+            
+            return result.OrderByDescending(x => x.Alternative?.Sum(a => a.Total) - x.Current?.Sum(c => c.Total));
         }
     }
 }
