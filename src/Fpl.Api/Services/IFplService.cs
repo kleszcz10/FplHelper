@@ -12,5 +12,6 @@ namespace Fpl.Api.Services
         Task<IEnumerable<FplPlayerExtension>> GetPlayers();
         BestTeamResult PlayersOptimalisation(OptimalisationParameter[] parameters, IEnumerable<FplPlayerExtension> players);
         Task<IEnumerable<ReplaceProposition>> ReplaceInMyTeam(int teamId, int numberOfPlayersToReplace, List<OptimalisationParameter> parameters);
+        Task<IEnumerable<PickTeamResult>> PickTeam(int teamId, List<OptimalisationParameter> parameters);
     }
 }

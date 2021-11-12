@@ -36,6 +36,7 @@ namespace Fpl.Api
             services.AddControllers().AddJsonOptions(config =>
             {
                 config.JsonSerializerOptions.Converters.Add(new DoubleConverter());
+                config.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
             });
             services.AddSwaggerGen(c =>
             {

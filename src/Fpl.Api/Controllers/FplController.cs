@@ -53,6 +53,10 @@ namespace Fpl.Api.Controllers
         {
             return _fplService.ReplaceInMyTeam(teamId, numberOfPlayersToReplace, parameters);
         }
-     
+        [HttpPost("{teamId}")]
+        public Task<IEnumerable<PickTeamResult>> PickTeam(int teamId, List<OptimalisationParameter> parameters)
+        {
+            return _fplService.PickTeam(teamId, parameters);
+        }
     }
 }

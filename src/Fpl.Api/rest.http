@@ -85,19 +85,49 @@ Content-Type: application/json
   },
   {
     "propertyName": "Form",
-    "weight": 10,
+    "weight": 5,
     "ascending": true,
     "displayOnly": false
   },
   {
     "propertyName": "TotalPoints",
-    "weight": 8,
+    "weight": 2,
     "ascending": true,
     "displayOnly": false
   },
   {
-    "propertyName": "AvgOfNext2GwFixture",
-    "weight": 6,
+    "propertyName": "NextGwFixture",
+    "weight": 1,
+    "ascending": false,
+    "displayOnly": false
+  }
+]
+
+### PickTeam
+@teamId = 2391262
+POST http://localhost:5000/api/PickTeam/{{teamId}} HTTP/1.1
+Content-Type: application/json
+
+[
+  {
+      "propertyName": "WebName",
+      "displayOnly": true
+  },
+  {
+    "propertyName": "Form",
+    "weight": 5,
+    "ascending": true,
+    "displayOnly": false
+  },
+  {
+    "propertyName": "TotalPoints",
+    "weight": 2,
+    "ascending": true,
+    "displayOnly": false
+  },
+  {
+    "propertyName": "NextGwFixture",
+    "weight": 1,
     "ascending": false,
     "displayOnly": false
   }

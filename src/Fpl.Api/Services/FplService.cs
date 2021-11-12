@@ -461,5 +461,79 @@ namespace Fpl.Api.Services
             
             return result.OrderByDescending(x => x.Alternative?.Sum(a => a.Total) - x.Current?.Sum(c => c.Total));
         }
+        
+        public async Task<IEnumerable<PickTeamResult>> PickTeam(int teamId,List<OptimalisationParameter> parameters)
+        {
+            var gameweeks = await _fplGameweekClient.GetGameweeks();
+            var currentGameweek = gameweeks.FirstOrDefault(x => x.IsCurrent);
+
+            var pick = await _fplEntryClient.GetPicks(teamId, currentGameweek.Id);
+
+            var players = await GetPlayers();
+
+            if (parameters.Any(x => x.PropertyName != nameof(FplPlayer.Id)))
+            {
+                parameters.Add(new OptimalisationParameter
+                {
+                    PropertyName = nameof(FplPlayer.Id),
+                    DisplayOnly = true
+                });
+            }
+
+            var optimalisation = PlayersOptimalisation(parameters.ToArray(), players);
+
+            players = players.Where(x => x.Minutes > 0).Select(x =>
+            {
+                var optimalPlayer = optimalisation.Results.FirstOrDefault(o => Convert.ToInt32(o[nameof(FplPlayer.Id)]) == x.Id);
+                var total = Convert.ToDouble(optimalPlayer["Total"]);
+                x.Total = total;
+
+                return x;
+
+            }).ToList();
+
+            var playersInTeam = players.Where(x => pick.Picks.Any(p => p.PlayerId == x.Id))
+                           .Select(x =>
+                           {
+                               var optimalPlayer = optimalisation.Results.FirstOrDefault(o => Convert.ToInt32(o[nameof(FplPlayer.Id)]) == x.Id);
+                               var total = Convert.ToDouble(optimalPlayer["Total"]);
+
+                               var player = x.MapToBasic();
+                               player.Total = total;
+
+                               return player;
+                           }).ToList();
+
+            var result = new List<PickTeamResult>();
+            result.Add(PickTeam(3, 4, 3, playersInTeam));
+            result.Add(PickTeam(4, 4, 2, playersInTeam));
+            result.Add(PickTeam(3, 5, 2, playersInTeam));
+            result.Add(PickTeam(4, 3, 3, playersInTeam));
+            result.Add(PickTeam(4, 5, 1, playersInTeam));
+            result.Add(PickTeam(5, 3, 2, playersInTeam));
+            result.Add(PickTeam(5, 4, 1, playersInTeam));
+            result.Add(PickTeam(5, 2, 3, playersInTeam));
+
+            return result.OrderByDescending(x => x.PitchSumOfTotal);
+            
+        }
+
+        private PickTeamResult PickTeam(int numberOfDefenders, int numberOfmidfielders,int numberOfForwarders, IEnumerable<FplPlayerBasic> team)
+        {
+            var ordered = team.OrderByDescending(x => x.Total);
+            var goalkeeper = ordered.Where(x => x.Position == FplPlayerPosition.Goalkeeper).Take(1);
+            var midfielders = ordered.Where(x => x.Position == FplPlayerPosition.Midfielder).Take(numberOfmidfielders);
+            var defenders = ordered.Where(x => x.Position == FplPlayerPosition.Defender).Take(numberOfDefenders);
+            var forwarders = ordered.Where(x => x.Position == FplPlayerPosition.Forward).Take(numberOfForwarders);
+            var playersOnThePitch = defenders.Concat(midfielders).Concat(forwarders).Concat(goalkeeper);
+            var playersOnTheBench = team.Where(b => !playersOnThePitch.Select(p => p.Id).Contains(b.Id));
+
+            return new PickTeamResult
+            {
+                Formation = $"{numberOfDefenders}-{numberOfmidfielders}-{numberOfForwarders}",
+                OnThePitch = playersOnThePitch,
+                OnTheBench = playersOnTheBench
+            };
+        }
     }
 }
