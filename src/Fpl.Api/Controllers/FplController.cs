@@ -44,9 +44,37 @@ namespace Fpl.Api.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<string> GetParameters()
+        public Parameters GetParameters()
         {
-            return typeof(FplPlayerExtension).GetProperties().Select(x => x.Name);
+            var parameters = new Parameters();
+            var properties = typeof(FplPlayerExtension).GetProperties();
+            
+            parameters.NumericParameters = properties.Where(x =>
+            {
+                switch (Type.GetTypeCode(x.PropertyType))
+                {
+                    case TypeCode.Byte:
+                    case TypeCode.SByte:
+                    case TypeCode.UInt16:
+                    case TypeCode.UInt32:
+                    case TypeCode.UInt64:
+                    case TypeCode.Int16:
+                    case TypeCode.Int32:
+                    case TypeCode.Int64:
+                    case TypeCode.Decimal:
+                    case TypeCode.Double:
+                    case TypeCode.Single:
+                        return true;
+                    default:
+                        return false;
+                }
+            }).Select(x => x.Name).ToArray();
+
+            parameters.DisplayOnlyParameters = properties.Select(x => x.Name)
+                                                         .Where(x => !parameters.NumericParameters.Contains(x))
+                                                         .ToArray();
+
+            return parameters;
         }
         [HttpPost("{teamId}/{numberOfPlayersToReplace}")]
         public Task<IEnumerable<ReplaceProposition>> ReplaceInMyTeam(int teamId, int numberOfPlayersToReplace, List<OptimalisationParameter> parameters)
