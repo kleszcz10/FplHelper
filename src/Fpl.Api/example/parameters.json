@@ -1,0 +1,58 @@
+[
+  {
+      "propertyName": "WebName",
+      "displayOnly": true
+  },
+  {
+      "propertyName": "Position",
+      "displayOnly": true
+  },
+  {
+    "propertyName": "Form",
+    "weight": 5,
+    "ascending": true,
+    "displayOnly": false
+  },
+  {
+    "propertyName": "TotalPoints",
+    "weight": 10,
+    "ascending": true,
+    "displayOnly": false
+  },
+  {
+    "propertyName": "Threat",
+    "weight": 11,
+    "ascending": true,
+    "displayOnly": false
+  },
+  {
+    "propertyName": "Creativity",
+    "weight": 7,
+    "ascending": true,
+    "displayOnly": false
+  },
+  {
+    "propertyName": "Influence",
+    "weight": 8,
+    "ascending": true,
+    "displayOnly": false
+  },
+  {
+    "propertyName": "AvgOfNext3GwFixture",
+    "weight": 2,
+    "ascending": false,
+    "displayOnly": false
+  },
+  {
+    "propertyName": "AvgOfNext2GwFixture",
+    "weight": 3,
+    "ascending": false,
+    "displayOnly": false
+  },
+  {
+    "propertyName": "NextGwFixture",
+    "weight": 4,
+    "ascending": false,
+    "displayOnly": false
+  }
+]
