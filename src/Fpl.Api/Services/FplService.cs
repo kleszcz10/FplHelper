@@ -76,15 +76,20 @@ namespace Fpl.Api.Services
                 result.Parameters.Add(parameter.PropertyName, values);
             }
 
-            var sumOfWeights = result.Parameters.Sum(x => Convert.ToDouble(x.Value[weightPropertyName]));
+            var minWeight = result.Parameters.Min(x => Convert.ToDouble(x.Value[weightPropertyName]));
+            var maxWeight = result.Parameters.Max(x => Convert.ToDouble(x.Value[weightPropertyName]));
+
 
             foreach (var input in result.Parameters)
             {
                 var weight = input.Value[weightPropertyName];
-                double normalizeWeight = Convert.ToDouble(weight) / sumOfWeights;
+                double normalizeWeight = Extensions.Normalise(Convert.ToDouble(weight), minWeight, maxWeight);
 
                 input.Value[weightPropertyName] = double.IsNaN(normalizeWeight) ? 0 : normalizeWeight;
             }
+
+            var sumOfWeight = result.Parameters.Sum(x => Convert.ToDouble(x.Value[weightPropertyName]));
+
             #endregion
             #region PrepareResult
             foreach (var player in players)
@@ -115,6 +120,8 @@ namespace Fpl.Api.Services
 
                     total += (normalise * Convert.ToDouble(weight));
                 }
+
+                total = total / sumOfWeight;
 
                 playerResult.Add("Total", total);
 
