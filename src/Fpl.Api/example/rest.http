@@ -5,42 +5,14 @@ GET http://localhost:5000/api/GetParameters HTTP/1.1
 POST http://localhost:5000/api/Optimalisation HTTP/1.1
 Content-Type: application/json
 
-< ./variables.http
+< ./parameters.json
 
 ### Best team based on optimalisation
 POST http://localhost:5000/api/KnapsackTeamBasedOnOptimalisation/10 HTTP/1.1
 Content-Type: application/json
 
-[
-  {
-      "propertyName": "WebName",
-      "displayOnly": true
-  },
-  {
-    "propertyName": "Form",
-    "weight": 8,
-    "ascending": true,
-    "displayOnly": false
-  },
-  {
-    "propertyName": "TotalPoints",
-    "weight": 10,
-    "ascending": true,
-    "displayOnly": false
-  },
-  {
-    "propertyName": "AvgOfNext3GwFixture",
-    "weight": 6,
-    "ascending": false,
-    "displayOnly": false
-  },
-  {
-    "propertyName": "Threat",
-    "weight": 15,
-    "ascending": true,
-    "displayOnly": false
-  }
-]
+< ./parameters.json
+
 
 ### ReplaceInMyTeam
 @teamId = 2391262
@@ -49,126 +21,18 @@ Content-Type: application/json
 POST http://localhost:5000/api/ReplaceInMyTeam/{{teamId}}/{{numberOfPlayersToReplace}} HTTP/1.1
 Content-Type: application/json
 
-[
-  {
-      "propertyName": "WebName",
-      "displayOnly": true
-  },
-  {
-      "propertyName": "Position",
-      "displayOnly": true
-  },
-  {
-    "propertyName": "Form",
-    "weight": 5,
-    "ascending": true,
-    "displayOnly": false
-  },
-  {
-    "propertyName": "TotalPoints",
-    "weight": 10,
-    "ascending": true,
-    "displayOnly": false
-  },
-  {
-    "propertyName": "Threat",
-    "weight": 11,
-    "ascending": true,
-    "displayOnly": false
-  },
-  {
-    "propertyName": "Creativity",
-    "weight": 7,
-    "ascending": true,
-    "displayOnly": false
-  },
-  {
-    "propertyName": "Influence",
-    "weight": 8,
-    "ascending": true,
-    "displayOnly": false
-  },
-  {
-    "propertyName": "AvgOfNext3GwFixture",
-    "weight": 2,
-    "ascending": false,
-    "displayOnly": false
-  },
-  {
-    "propertyName": "AvgOfNext2GwFixture",
-    "weight": 3,
-    "ascending": false,
-    "displayOnly": false
-  },
-  {
-    "propertyName": "NextGwFixture",
-    "weight": 4,
-    "ascending": false,
-    "displayOnly": false
-  }
-]
+< ./parameters.json
+
 
 ### Best team based on optimalisation
 POST http://localhost:5000/api/KnapsackTeamBasedOnOptimalisation/10 HTTP/1.1
 Content-Type: application/json
 
-[
-  {
-      "propertyName": "WebName",
-      "displayOnly": true
-  },
-  {
-    "propertyName": "Form",
-    "weight": 8,
-    "ascending": true,
-    "displayOnly": false
-  },
-  {
-    "propertyName": "TotalPoints",
-    "weight": 10,
-    "ascending": true,
-    "displayOnly": false
-  },
-  {
-    "propertyName": "AvgOfNext3GwFixture",
-    "weight": 6,
-    "ascending": false,
-    "displayOnly": false
-  },
-  {
-    "propertyName": "Threat",
-    "weight": 15,
-    "ascending": true,
-    "displayOnly": false
-  }
-]
+< ./parameters.json
 
 ### PickTeam
 @teamId = 2391262
 POST http://localhost:5000/api/PickTeam/{{teamId}} HTTP/1.1
 Content-Type: application/json
 
-[
-  {
-      "propertyName": "WebName",
-      "displayOnly": true
-  },
-  {
-    "propertyName": "Form",
-    "weight": 5,
-    "ascending": true,
-    "displayOnly": false
-  },
-  {
-    "propertyName": "TotalPoints",
-    "weight": 2,
-    "ascending": true,
-    "displayOnly": false
-  },
-  {
-    "propertyName": "NextGwFixture",
-    "weight": 1,
-    "ascending": false,
-    "displayOnly": false
-  }
-]
+< ./parameters.json
