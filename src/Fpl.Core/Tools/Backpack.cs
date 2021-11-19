@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Fpl.Api.Controllers;
 
-namespace Fpl.Api.Tools
+namespace Fpl.Core.Tools
 {
     public static class Backpack
     {

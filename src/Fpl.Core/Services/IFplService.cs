@@ -1,10 +1,9 @@
-﻿using Fpl.Api.Controllers;
-using Fpl.Api.DTO;
+﻿using Fpl.Core.DTO;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Fpl.Api.Services
+namespace Fpl.Core.Services
 {
     public interface IFplService
     {

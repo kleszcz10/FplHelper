@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Fpl.Api.Controllers;
-using Fpl.Api.DTO;
 
-namespace Fpl.Api.DTO
+namespace Fpl.Core.DTO
 {
     public class KnapsackTeam
     {

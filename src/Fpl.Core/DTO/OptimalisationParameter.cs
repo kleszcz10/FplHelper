@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Fpl.Api.DTO
+﻿namespace Fpl.Core.DTO
 {
     public class OptimalisationParameter
     {

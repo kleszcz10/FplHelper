@@ -1,6 +1,6 @@
-﻿using Fpl.Api.Controllers;
-using Fpl.Api.DTO;
-using FplClient.Clients;
+﻿using Fpl.Core.DTO;
+using Fpl.Core.Tools;
+using FplClient;
 using FplClient.Data;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
@@ -11,10 +11,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Fpl.Api.Tools;
-using FplClient;
 
-namespace Fpl.Api.Services
+namespace Fpl.Core.Services
 {
     public class FplService : IFplService
     {
@@ -107,7 +105,7 @@ namespace Fpl.Api.Services
                     var weight = result.Parameters[parameter.PropertyName][weightPropertyName];
 
                     var currentValue = player.GetValueByName(parameter.PropertyName);
-                    var normalise = Extensions.Normalise(Convert.ToDouble(currentValue), Convert.ToDouble(min), Convert.ToDouble(max));
+                    var normalise = Fpl.Core.Tools.Extensions.Normalise(Convert.ToDouble(currentValue), Convert.ToDouble(min), Convert.ToDouble(max));
 
                     if (parameter.Ascending == false)
                     {
@@ -291,9 +289,9 @@ namespace Fpl.Api.Services
                             }
                         });
             }
-            catch (Exception ex) 
-            { 
-                _logger.LogError(ex.Message); 
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
             }
             finally
             {
@@ -463,11 +461,11 @@ namespace Fpl.Api.Services
 
                 playersCombination.Alternative = alternatives.OrderByDescending(x => x.Sum(p => p.Total)).FirstOrDefault()?.Select(x => x.MapToBasic())?.ToList();
             }
-            
+
             return result.OrderByDescending(x => x.Alternative?.Sum(a => a.Total) - x.Current?.Sum(c => c.Total));
         }
-        
-        public async Task<IEnumerable<PickTeamResult>> PickTeam(int teamId,List<OptimalisationParameter> parameters)
+
+        public async Task<IEnumerable<PickTeamResult>> PickTeam(int teamId, List<OptimalisationParameter> parameters)
         {
             var gameweeks = await _fplGameweekClient.GetGameweeks();
             var currentGameweek = gameweeks.FirstOrDefault(x => x.IsCurrent);
@@ -520,10 +518,10 @@ namespace Fpl.Api.Services
             result.Add(PickTeam(5, 2, 3, playersInTeam));
 
             return result.OrderByDescending(x => x.PitchSumOfTotal);
-            
+
         }
 
-        private PickTeamResult PickTeam(int numberOfDefenders, int numberOfmidfielders,int numberOfForwarders, IEnumerable<FplPlayerBasic> team)
+        private PickTeamResult PickTeam(int numberOfDefenders, int numberOfmidfielders, int numberOfForwarders, IEnumerable<FplPlayerBasic> team)
         {
             var ordered = team.OrderByDescending(x => x.Total);
             var goalkeeper = ordered.Where(x => x.Position == FplPlayerPosition.Goalkeeper).Take(1);

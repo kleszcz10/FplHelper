@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Fpl.Api.DTO
+namespace Fpl.Core.DTO
 {
     public class PickTeamResult
     {

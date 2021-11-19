@@ -1,9 +1,8 @@
-﻿using Fpl.Api.Controllers;
-using Fpl.Api.DTO;
+﻿using Fpl.Core.DTO;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Fpl.Api.Tools
+namespace Fpl.Core.Tools
 {
     public static class Extensions
     {

@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using Fpl.Api.DTO;
-using Fpl.Api.Controllers;
 
-namespace Fpl.Api.DTO
+namespace Fpl.Core.DTO
 {
     public class ReplaceProposition
     {

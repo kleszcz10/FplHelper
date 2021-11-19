@@ -1,22 +1,13 @@
-using Fpl.Api.Services;
-using Fpl.Api.Tools;
-using FplClient;
-using FplClient.Clients;
+using Fpl.Core;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace Fpl.Api
 {
@@ -42,31 +33,7 @@ namespace Fpl.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Fpl.Api", Version = "v1" });
             });
-
-            services.AddHttpClient<IFplEntryClient,FplEntryClient>();
-            services.AddHttpClient<IFplEntryHistoryClient, FplEntryHistoryClient>();
-            services.AddHttpClient<IFplFixtureClient, FplFixtureClient>();
-            services.AddHttpClient<IFplGameweekClient, FplGameweekClient>();
-            services.AddHttpClient<IFplGlobalSettingsClient, FplGlobalSettingsClient>();
-            services.AddHttpClient<IFplLeagueClient, FplLeagueClient>();
-            services.AddHttpClient<IFplLiveGameweekStatsClient, FplLiveGameweekStatsClient>();
-            services.AddHttpClient<IFplPlayerClient, FplPlayerClient>();
-            services.AddHttpClient<IFplFixtureClient, FplFixtureClient>();
-
-            services.AddMemoryCache();
-
-            services.AddSingleton<IFplService, FplService>();
-
-            services.AddResultsCaching<IFplEntryClient>();
-            services.AddResultsCaching<IFplEntryHistoryClient>();
-            services.AddResultsCaching<IFplFixtureClient>();
-            services.AddResultsCaching<IFplGameweekClient>();
-            services.AddResultsCaching<IFplGlobalSettingsClient>();
-            services.AddResultsCaching<IFplLeagueClient>();
-            services.AddResultsCaching<IFplLiveGameweekStatsClient>();
-            services.AddResultsCaching<IFplPlayerClient>();
-            services.AddResultsCaching<IFplFixtureClient>();
-
+            services.AddCore();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

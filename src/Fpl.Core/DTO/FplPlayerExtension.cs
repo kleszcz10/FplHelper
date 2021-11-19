@@ -1,7 +1,6 @@
 ﻿using FplClient.Data;
-using Fpl.Api.Controllers;
 
-namespace Fpl.Api.DTO
+namespace Fpl.Core.DTO
 {
     public class FplPlayerExtension : FplPlayer
     {

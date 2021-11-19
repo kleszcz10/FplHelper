@@ -1,4 +1,4 @@
-﻿namespace Fpl.Api.DTO
+﻿namespace Fpl.Core.DTO
 {
     public class Parameters
     {

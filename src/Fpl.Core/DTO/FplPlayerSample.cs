@@ -1,11 +1,10 @@
 ﻿using FplClient.Data;
-using Fpl.Api.Controllers;
 
-namespace Fpl.Api.DTO
+namespace Fpl.Core.DTO
 {
     public class FplPlayerBasic
     {
-        public int Id { get;  set; }
+        public int Id { get; set; }
         public string WebName { get; set; }
         public int TotalPoints { get; set; }
         public FplPlayerPosition Position { get; set; }

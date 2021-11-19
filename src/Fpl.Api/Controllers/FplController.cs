@@ -1,23 +1,11 @@
-﻿using Fpl.Api.DTO;
-using Fpl.Api.Services;
-using Fpl.Api.Tools;
-using FplClient.Clients;
-using FplClient.Data;
-using Microsoft.AspNetCore.Http;
+﻿using Fpl.Core.DTO;
+using Fpl.Core.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Logging;
-using Nelibur.ObjectMapper;
 using System;
-using System.Collections;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Dynamic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Timers;
 
 namespace Fpl.Api.Controllers
 {
@@ -48,7 +36,7 @@ namespace Fpl.Api.Controllers
         {
             var parameters = new Parameters();
             var properties = typeof(FplPlayerExtension).GetProperties();
-            
+
             parameters.NumericParameters = properties.Where(x =>
             {
                 switch (Type.GetTypeCode(x.PropertyType))
