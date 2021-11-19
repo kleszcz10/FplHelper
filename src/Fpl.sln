@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fpl.Api", "Fpl.Api\Fpl.Api.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fpl.Core", "Fpl.Core\Fpl.Core.csproj", "{86839929-5CEA-4557-9480-5E9D608A2F38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fpl.Wasm", "Fpl.Wasm\Fpl.Wasm.csproj", "{5E3DA0E3-3F20-4104-BD96-87B9C59172D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fpl.Wasm", "Fpl.Wasm\Fpl.Wasm.csproj", "{5E3DA0E3-3F20-4104-BD96-87B9C59172D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

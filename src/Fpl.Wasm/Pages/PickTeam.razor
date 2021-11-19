@@ -1,0 +1,42 @@
+﻿@page "/PickTeam"
+
+@using System.Text.RegularExpressions
+@using System.ComponentModel.DataAnnotations
+
+<MudContainer Class="mt-16 px-8" MaxWidth="MaxWidth.False">
+    <MudGrid>
+        <MudItem md="12">
+            <MudCard>
+                <MudCardContent>
+                    <MudForm @ref="form" @bind-IsValid="@success" @bind-Errors="@errors">
+                        <MudTextField T="string" Label="FPL Team Id" Required="true" RequiredError="FPL Team Id is required!" />
+                    </MudForm>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!success)" Class="ml-auto">Pick Team!</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+        <MudItem md="12" @ref="resultsCard">
+            <MudCard>
+                <MudCardContent>
+
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+
+
+@code {
+    bool success;
+    string[] errors = { };
+    MudForm form;
+    MudItem resultsCard;
+
+    public PickTeam()
+    {
+    }
+
+
+}
