@@ -38,18 +38,6 @@
     "displayOnly": false
   },
   {
-    "propertyName": "AvgOfNext3GwFixture",
-    "weight": 2,
-    "ascending": false,
-    "displayOnly": false
-  },
-  {
-    "propertyName": "AvgOfNext2GwFixture",
-    "weight": 3,
-    "ascending": false,
-    "displayOnly": false
-  },
-  {
     "propertyName": "NextGwFixture",
     "weight": 4,
     "ascending": false,
