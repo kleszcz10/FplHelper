@@ -138,12 +138,12 @@ namespace Fpl.Core.Services
                 var players = await _fplPlayerClient.GetAllPlayers();
                 var fixtures = await _fplFixtureClient.GetFixtures();
                 var gameweeks = await _fplGameweekClient.GetGameweeks();
-                var currentGameweek = gameweeks.FirstOrDefault(x => x.IsCurrent);
+                var nextGameweek = gameweeks.FirstOrDefault(x => x.IsNext);
                 var settings = await _fplGlobalSettingsClient.GetGlobalSettings();
 
                 var fixturesData = new Dictionary<int, Dictionary<int, double>>();
 
-                var gameweeksRange = Enumerable.Range(currentGameweek.Id, currentGameweek.Id + 5);
+                var gameweeksRange = Enumerable.Range(nextGameweek.Id, nextGameweek.Id + 5);
                 var fixturesInRange = fixtures.Where(x => x.Event.HasValue && gameweeksRange.Contains(x.Event.Value));
 
                 foreach (var team in settings.Teams)
@@ -162,10 +162,10 @@ namespace Fpl.Core.Services
                 foreach (var player in cast)
                 {
                     var playerFixtures = fixturesData[player.TeamId];
-                    player.NextGwFixture = playerFixtures[currentGameweek.Id];
-                    player.AvgOfNext2GwFixture = playerFixtures.Where(x => x.Key == currentGameweek.Id || x.Key == currentGameweek.Id + 1).Average(x => x.Value);
-                    player.AvgOfNext3GwFixture = playerFixtures.Where(x => x.Key == currentGameweek.Id || x.Key == currentGameweek.Id + 1 || x.Key == currentGameweek.Id + 3).Average(x => x.Value);
-                    player.AvgOfNext4GwFixture = playerFixtures.Where(x => x.Key == currentGameweek.Id || x.Key == currentGameweek.Id + 1 || x.Key == currentGameweek.Id + 3 || x.Key == currentGameweek.Id + 4).Average(x => x.Value);
+                    player.NextGwFixture = playerFixtures[nextGameweek.Id];
+                    player.AvgOfNext2GwFixture = playerFixtures.Where(x => x.Key == nextGameweek.Id || x.Key == nextGameweek.Id + 1).Average(x => x.Value);
+                    player.AvgOfNext3GwFixture = playerFixtures.Where(x => x.Key == nextGameweek.Id || x.Key == nextGameweek.Id + 1 || x.Key == nextGameweek.Id + 3).Average(x => x.Value);
+                    player.AvgOfNext4GwFixture = playerFixtures.Where(x => x.Key == nextGameweek.Id || x.Key == nextGameweek.Id + 1 || x.Key == nextGameweek.Id + 3 || x.Key == nextGameweek.Id + 4).Average(x => x.Value);
                 }
 
                 _cache.Set(nameof(GetPlayers), cast, TimeSpan.FromHours(1));
