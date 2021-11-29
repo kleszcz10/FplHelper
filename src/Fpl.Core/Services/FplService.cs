@@ -529,7 +529,7 @@ namespace Fpl.Core.Services
             var defenders = ordered.Where(x => x.Position == FplPlayerPosition.Defender).Take(numberOfDefenders);
             var forwarders = ordered.Where(x => x.Position == FplPlayerPosition.Forward).Take(numberOfForwarders);
             var playersOnThePitch = defenders.Concat(midfielders).Concat(forwarders).Concat(goalkeeper);
-            var playersOnTheBench = team.Where(b => !playersOnThePitch.Select(p => p.Id).Contains(b.Id));
+            var playersOnTheBench = team.Where(b => !playersOnThePitch.Select(p => p.Id).Contains(b.Id)).OrderByDescending(x => x.Total);
 
             return new PickTeamResult
             {
