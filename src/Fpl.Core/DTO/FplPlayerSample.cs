@@ -13,5 +13,6 @@ namespace Fpl.Core.DTO
         public int NowCost { get; set; }
         public int PurchaseCost { get; set; }
         public int SellingCost { get; set; }
+        public int TeamId { get; set; }
     }
 }

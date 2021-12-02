@@ -26,7 +26,8 @@ namespace Fpl.Core.Tools
                 Position = player.Position,
                 Form = player.Form,
                 NowCost = player.NowCost,
-                Total = player.Total
+                Total = player.Total,
+                TeamId = player.TeamId
             };
         }
 

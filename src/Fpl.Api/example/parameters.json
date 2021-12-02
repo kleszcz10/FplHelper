@@ -1,15 +1,20 @@
 [
   {
-      "propertyName": "WebName",
-      "displayOnly": true
+    "propertyName": "WebName",
+    "displayOnly": true
   },
   {
-      "propertyName": "Position",
-      "displayOnly": true
+    "propertyName": "Position",
+    "displayOnly": true
+  },
+  {
+    "propertyName": "PointsPerGame",
+    "weight": 7,
+    "ascending": true
   },
   {
     "propertyName": "Form",
-    "weight": 5,
+    "weight": 6,
     "ascending": true,
     "displayOnly": false
   },
@@ -38,8 +43,8 @@
     "displayOnly": false
   },
   {
-    "propertyName": "NextGwFixture",
-    "weight": 4,
+    "propertyName": "AvgOfNext3GwFixture",
+    "weight": 5,
     "ascending": false,
     "displayOnly": false
   }

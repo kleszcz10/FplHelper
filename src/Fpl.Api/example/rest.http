@@ -15,7 +15,10 @@ Content-Type: application/json
 
 
 ### ReplaceInMyTeam
-@teamId = 2391262
+### Backpackers 2391262
+### Ks Kelpie 833896
+### AdrianTeam 2692525
+@teamId = 2391262 
 @numberOfPlayersToReplace = 1
 
 POST http://localhost:5000/api/ReplaceInMyTeam/{{teamId}}/{{numberOfPlayersToReplace}} HTTP/1.1
@@ -31,7 +34,6 @@ Content-Type: application/json
 < ./parameters.json
 
 ### PickTeam
-@teamId = 2391262
 POST http://localhost:5000/api/PickTeam/{{teamId}} HTTP/1.1
 Content-Type: application/json
 

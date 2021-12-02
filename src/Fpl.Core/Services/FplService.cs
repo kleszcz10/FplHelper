@@ -360,6 +360,26 @@ namespace Fpl.Core.Services
                                            return player;
                                        }).ToList();
 
+            Func<IEnumerable<FplPlayerBasic>, IEnumerable<FplPlayerBasic>, IEnumerable<FplPlayerBasic>, bool> checkLimitOfPlayersFromOneTeam = (team, current,proposition) =>
+               {
+                   if(proposition is null)
+                   {
+                       return true;
+                   }
+
+                   var convertToPlayerIdAndTeamId = team.ToDictionary(x => x.Id, x => x.TeamId);
+
+                   foreach (var replace in current)
+                   {
+                       convertToPlayerIdAndTeamId.Remove(replace.Id);
+                   }
+                   foreach (var newPlayer in proposition)
+                   {
+                       convertToPlayerIdAndTeamId.Add(newPlayer.Id, newPlayer.TeamId);
+                   }
+                   return !convertToPlayerIdAndTeamId.GroupBy(x => x.Value).Any(x => x.Count() > 3);
+               };
+
             foreach (var playerInTeam in playersInTeam)
             {
                 var gameweekWitchPlayerWasBought = teamHistory.OrderByDescending(x => x.EventEntryHistory.Event).FirstOrDefault(x => x.Picks.All(p => p.PlayerId != playerInTeam.Id))?.EventEntryHistory?.Event + 1 ?? 1;
@@ -459,7 +479,10 @@ namespace Fpl.Core.Services
                     }
                 }
 
-                playersCombination.Alternative = alternatives.OrderByDescending(x => x.Sum(p => p.Total)).FirstOrDefault()?.Select(x => x.MapToBasic())?.ToList();
+                playersCombination.Alternative = alternatives.Select(x => x.Select(p => p.MapToBasic()))
+                                                             .Where(alternative => checkLimitOfPlayersFromOneTeam.Invoke(playersInTeam, playersCombination.Current, alternative))
+                                                             .OrderByDescending(x => x.Sum(p => p.Total))
+                                                             .FirstOrDefault()?.ToList();
             }
 
             return result.OrderByDescending(x => x.Alternative?.Sum(a => a.Total) - x.Current?.Sum(c => c.Total));
