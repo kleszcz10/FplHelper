@@ -8,6 +8,11 @@
     "displayOnly": true
   },
   {
+    "propertyName": "ChanceOfPlayingInNextRound",
+    "weight": 30,
+    "ascending": true
+  },
+  {
     "propertyName": "PointsPerGame",
     "weight": 7,
     "ascending": true

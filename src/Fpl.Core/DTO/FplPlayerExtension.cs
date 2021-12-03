@@ -10,5 +10,6 @@ namespace Fpl.Core.DTO
         public double AvgOfNext2GwFixture { get; set; }
         public double AvgOfNext3GwFixture { get; set; }
         public double AvgOfNext4GwFixture { get; set; }
+        public int ChanceOfPlayingInNextRound => string.IsNullOrEmpty(base.ChanceOfPlayingNextRound) ? 100 : int.Parse(base.ChanceOfPlayingNextRound);
     }
 }
